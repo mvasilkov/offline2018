@@ -67,3 +67,5 @@ function view_help() {
 
     output.innerHTML = html
 }
+
+view_help()
