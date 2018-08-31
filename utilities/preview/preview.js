@@ -8,16 +8,23 @@ const CELL_PNGS = {
 }
 
 const input = document.getElementById('b')
-const output = document.getElementById('board')
+const output = document.getElementById('output')
 
 input.addEventListener('change', event => {
     const a = input.value
-    if (a) view_board(a)
+    if (a) {
+        output.innerHTML = ''
+        a = a.split('\n').forEach(b => view_board(b))
+    }
     else view_help()
 })
 
 function view_board(a) {
-    const board = JSON.parse(`[${a}]`)
+    a = a.trim()
+    if (!a) return
+    if (a[0] != '[') a = `[${a}]`
+
+    const board = JSON.parse(a)
     const height = board.shift()
     const width = board.shift()
 
@@ -38,9 +45,13 @@ function view_board(a) {
         html += '</tr>'
     }
 
-    html += '</table>'
+    html += `</table><pre><code>${a}</code></pre>`
 
-    output.innerHTML = html
+    const container = document.createElement('div')
+    container.className = 'board'
+    container.innerHTML = html
+
+    output.appendChild(container)
 }
 
 function view_help() {
