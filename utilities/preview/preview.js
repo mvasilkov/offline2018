@@ -11,7 +11,7 @@ const input = document.getElementById('b')
 const output = document.getElementById('output')
 
 input.addEventListener('change', event => {
-    const a = input.value
+    let a = input.value
     if (a) {
         output.innerHTML = ''
         a = a.split('\n').forEach(b => view_board(b))
@@ -69,7 +69,7 @@ function view_help() {
 
         html += '</td>'
 
-        html += `<td>${cells[j]}</td>`
+        html += `<td><code>${cells[j]}</code></td>`
 
         html += '</tr>'
     }

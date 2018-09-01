@@ -18,3 +18,30 @@ const CELL_D = SOCK_TOP | SOCK_LEFT | CONN_TOP_LEFT;
 const CELL_AC = CELL_A | CELL_C;
 const CELL_BD = CELL_B | CELL_D;
 const ALL_CELLS = [CELL_NOTHING, CELL_A, CELL_B, CELL_C, CELL_D, CELL_AC, CELL_BD];
+const ROTATE_CELL = {
+    [CELL_NOTHING]: CELL_NOTHING,
+    [CELL_A]: CELL_B,
+    [CELL_B]: CELL_C,
+    [CELL_C]: CELL_D,
+    [CELL_D]: CELL_A,
+    [CELL_AC]: CELL_BD,
+    [CELL_BD]: CELL_AC,
+};
+const FLIP_CELL_BT = {
+    [CELL_NOTHING]: CELL_NOTHING,
+    [CELL_A]: CELL_B,
+    [CELL_B]: CELL_A,
+    [CELL_C]: CELL_D,
+    [CELL_D]: CELL_C,
+    [CELL_AC]: CELL_BD,
+    [CELL_BD]: CELL_AC,
+};
+const FLIP_CELL_LR = {
+    [CELL_NOTHING]: CELL_NOTHING,
+    [CELL_A]: CELL_D,
+    [CELL_B]: CELL_C,
+    [CELL_C]: CELL_B,
+    [CELL_D]: CELL_A,
+    [CELL_AC]: CELL_BD,
+    [CELL_BD]: CELL_AC,
+};
