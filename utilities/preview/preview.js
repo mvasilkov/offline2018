@@ -80,3 +80,30 @@ function view_help() {
 }
 
 view_help()
+
+document.addEventListener('click', function (event) {
+    if (event.target.tagName != 'IMG') return
+    let a = CELL_NOTHING
+    switch (true) {
+        case event.target.src.endsWith('CELL_A.png'):
+            a = CELL_A
+            break
+        case event.target.src.endsWith('CELL_B.png'):
+            a = CELL_B
+            break
+        case event.target.src.endsWith('CELL_C.png'):
+            a = CELL_C
+            break
+        case event.target.src.endsWith('CELL_D.png'):
+            a = CELL_D
+            break
+        case event.target.src.endsWith('CELL_AC.png'):
+            a = CELL_AC
+            break
+        case event.target.src.endsWith('CELL_BD.png'):
+            a = CELL_BD
+            break
+    }
+    if (a == CELL_NOTHING) return
+    event.target.src = CELL_PNGS[ROTATE_CELL[a]]
+})

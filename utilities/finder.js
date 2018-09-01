@@ -84,6 +84,30 @@ function hasFoundBoard(b) {
     return foundBoards[boardToString(b)] == true
 }
 
+function boardNotFilled(b) {
+    const [height, width, ...board] = b
+
+    // Last row
+    let foundCell = false
+    for (let x = 0; x < width; ++x) {
+        if (board[x + (height - 1) * width] != CELL_NOTHING) {
+            foundCell = true
+            break
+        }
+    }
+    if (!foundCell) return true
+
+    // Last column
+    foundCell = false
+    for (let y = 0; y < height; ++y) {
+        if (board[width - 1 + y * width] != CELL_NOTHING) {
+            foundCell = true
+            break
+        }
+    }
+    return !foundCell
+}
+
 function boardPutCell(b, x, y) {
     const [height, width] = b
 
@@ -101,6 +125,7 @@ function boardPutCell(b, x, y) {
     const index = x + y * width + 2
     const cell_left = x ? b[index - 1] : CELL_NOTHING
     const cell_top = y ? b[index - width] : CELL_NOTHING
+    const cell_top_left = (x * y) ? b[index - width - 1] : CELL_NOTHING
     const features = (cell_left & SOCK_RIGHT ? SOCK_LEFT : 0) |
         (cell_top & SOCK_BOT ? SOCK_TOP : 0)
 
@@ -108,13 +133,20 @@ function boardPutCell(b, x, y) {
     if (x == width - 1) feature_bits |= SOCK_RIGHT
     if (y == height - 1) feature_bits |= SOCK_BOT
 
-    const good_cells = ALL_CELLS.filter(a => (a & feature_bits) == features)
+    let good_cells = ALL_CELLS.filter(a => (a & feature_bits) == features)
+
+    // Ban 'o' structures
+    if (cell_left == CELL_A && cell_top_left == CELL_B && cell_top == CELL_C) {
+        good_cells = good_cells.filter(a => a != CELL_D)
+    }
+
     for (let n = 0; n < good_cells.length; ++n) {
         b[index] = good_cells[n]
         if (last_cell) {
+            if (boardNotFilled(b)) continue
             if (hasFoundBoard(b)) continue
             addToFoundBoards(b)
-            console.log(b)
+            console.log('' + b)
         }
         else boardPutCell(b, u, v)
     }
@@ -122,13 +154,12 @@ function boardPutCell(b, x, y) {
 
 function goodBoards(height, width) {
     const b = initBoard(height, width)
-    // b[2] = CELL_B // Starting cell
-    // boardPutCell(b, 1, 0)
-    boardPutCell(b, 0, 0)
+    b[2] = CELL_B // Starting cell
+    boardPutCell(b, 1, 0)
 }
 
 function run() {
-    goodBoards(3, 3)
+    goodBoards(6, 6)
 }
 
 if (require.main === module) {
