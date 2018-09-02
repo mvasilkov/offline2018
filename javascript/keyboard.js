@@ -34,6 +34,11 @@ const KEYCODES = {
         player: 1,
         action: 3 /* DOWN */,
     },
+    // Space bar (player 1)
+    32: {
+        player: 1,
+        action: 2 /* UP */,
+    }
 };
 const controls = [
     [],

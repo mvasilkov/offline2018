@@ -45,6 +45,11 @@ const KEYCODES: { [n: number]: KeyAction } = {
         player: 1,
         action: Actions.DOWN,
     },
+    // Space bar (player 1)
+    32: {
+        player: 1,
+        action: Actions.UP,
+    }
 }
 
 const controls = [
