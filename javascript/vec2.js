@@ -7,9 +7,16 @@ class Vec2 {
     set(x, y) {
         this.x = x;
         this.y = y;
-        return this;
+    }
+    setTo(other) {
+        this.x = other.x;
+        this.y = other.y;
     }
     copy() {
         return new Vec2(this.x, this.y);
+    }
+    add(other) {
+        this.x += other.x;
+        this.y += other.y;
     }
 }

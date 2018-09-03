@@ -46,7 +46,7 @@ const controls = [
     [false, false, false, false],
 ];
 function updateControls(event, keyDown) {
-    if (keyDown && (event.altKey || event.ctrlKey || event.metaKey)) {
+    if (keyDown && (event.altKey || event.ctrlKey || event.metaKey || event.repeat)) {
         return;
     }
     let a;

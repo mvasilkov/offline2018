@@ -59,7 +59,7 @@ const controls = [
 ]
 
 function updateControls(event: KeyboardEvent, keyDown: boolean) {
-    if (keyDown && (event.altKey || event.ctrlKey || event.metaKey)) {
+    if (keyDown && (event.altKey || event.ctrlKey || event.metaKey || event.repeat)) {
         return
     }
     let a
