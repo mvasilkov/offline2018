@@ -12,4 +12,8 @@ class Vec2 {
         this.y = y
         return this
     }
+
+    copy(): Vec2 {
+        return new Vec2(this.x, this.y)
+    }
 }

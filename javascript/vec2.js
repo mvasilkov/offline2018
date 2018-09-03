@@ -9,4 +9,7 @@ class Vec2 {
         this.y = y;
         return this;
     }
+    copy() {
+        return new Vec2(this.x, this.y);
+    }
 }
