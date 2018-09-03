@@ -1,0 +1,9 @@
+#bcanvas, #canvas {
+    left: 0;
+    position: absolute;
+    top: 0;
+}
+
+#bcanvas {
+    background: #202020;
+}
