@@ -4,7 +4,7 @@ const player = new Player
 const stage = new Stage
 
 function update(t: number) {
-    player.update(t)
+    player.update(t, stage)
 }
 
 function render(t: number) {
