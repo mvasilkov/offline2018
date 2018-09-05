@@ -5,9 +5,11 @@ const stageSize = 880;
 const stagePadding = 0.5 * (cwidth - stageSize);
 const stageEnd = stagePadding + stageSize;
 const colSize = 40;
+const colCount = stageSize / colSize;
+const HOLE = -255;
 class Stage {
     constructor() {
-        this.columns = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        this.columns = [0, 0, 0, 0, 0, 0, 0, HOLE, HOLE, HOLE, 0, 0, 0, 0, 0, 0, HOLE, 0, 0, 0, 0, 0];
     }
     getFloor(x, x2) {
         const a = stageFloor - this.columns[Math.floor((x - stagePadding) / colSize)];
@@ -22,13 +24,15 @@ class Stage {
         return x;
     }
     render(c) {
-        c.fillStyle = '#fff';
-        c.fillRect(stagePadding, stageFloor, stageSize, 4);
-        c.fillStyle = '#aaa';
-        for (let n = 0; n < 20; ++n) {
-            const left = stagePadding + n * colSize;
-            const top = stageFloor - this.columns[n];
-            c.fillRect(left, top, colSize, this.columns[n]);
+        for (let n = 0; n < colCount; ++n) {
+            if (this.columns[n] != HOLE) {
+                const left = stagePadding + n * colSize;
+                const top = stageFloor - this.columns[n];
+                c.fillStyle = '#fff';
+                c.fillRect(left, stageFloor, colSize, 4);
+                c.fillStyle = '#aaa';
+                c.fillRect(left, top, colSize, this.columns[n]);
+            }
         }
     }
 }

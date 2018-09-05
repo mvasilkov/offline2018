@@ -14,6 +14,13 @@ class Player {
         this.r = 0.5 * playerSize;
         this.velocity = new Vec2(0, 0);
     }
+    restart() {
+        this.doubleJump = false;
+        this.onGround = false;
+        this.pos = playerStart.copy();
+        this.prevPos = playerStart.copy();
+        this.velocity = new Vec2(0, 0);
+    }
     standOn(floor) {
         this.doubleJump = true;
         this.onGround = true;
@@ -38,11 +45,7 @@ class Player {
         this.velocity.y += t * gravity;
         this.pos.add(this.velocity);
         if (this.pos.x > stageEnd - this.r) {
-            this.doubleJump = false;
-            this.onGround = false;
-            this.pos = playerStart.copy();
-            this.prevPos = playerStart.copy();
-            this.velocity = new Vec2(0, 0);
+            this.restart();
             return;
         }
         const [floor, floor2] = stage.getFloor(this.pos.x - this.r, this.pos.x + this.r);
@@ -51,6 +54,10 @@ class Player {
         }
         else if (this.pos.y >= floor2 - this.r && this.prevPos.y <= floor2 - this.r) {
             this.standOn(floor2);
+        }
+        if (this.pos.y > cheight + this.r) {
+            this.restart();
+            return;
         }
         const wall = stage.getWall(this.pos.x + this.r, this.pos.y + this.r);
         if (this.pos.x > wall - this.r) {

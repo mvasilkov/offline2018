@@ -6,12 +6,15 @@ const stagePadding = 0.5 * (cwidth - stageSize)
 const stageEnd = stagePadding + stageSize
 
 const colSize = 40
+const colCount = stageSize / colSize
+
+const HOLE = -255
 
 class Stage {
     columns: number[]
 
     constructor() {
-        this.columns = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        this.columns = [0, 0, 0, 0, 0, 0, 0, HOLE, HOLE, HOLE, 0, 0, 0, 0, 0, 0, HOLE, 0, 0, 0, 0, 0]
     }
 
     getFloor(x: number, x2: number): number[] {
@@ -31,14 +34,17 @@ class Stage {
     }
 
     render(c: CanvasRenderingContext2D) {
-        c.fillStyle = '#fff'
-        c.fillRect(stagePadding, stageFloor, stageSize, 4)
+        for (let n = 0; n < colCount; ++n) {
+            if (this.columns[n] != HOLE) {
+                const left = stagePadding + n * colSize
+                const top = stageFloor - this.columns[n]
 
-        c.fillStyle = '#aaa'
-        for (let n = 0; n < 20; ++n) {
-            const left = stagePadding + n * colSize
-            const top = stageFloor - this.columns[n]
-            c.fillRect(left, top, colSize, this.columns[n])
+                c.fillStyle = '#fff'
+                c.fillRect(left, stageFloor, colSize, 4)
+
+                c.fillStyle = '#aaa'
+                c.fillRect(left, top, colSize, this.columns[n])
+            }
         }
     }
 }
