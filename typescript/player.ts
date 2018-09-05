@@ -24,6 +24,14 @@ class Player {
         this.velocity = new Vec2(0, 0)
     }
 
+    standOn(floor: number) {
+        this.doubleJump = true
+        this.onGround = true
+        this.pos.y = floor - this.r
+        this.velocity.x = walkSpeed
+        this.velocity.y = 0
+    }
+
     update(t: number, stage: Stage) {
         const jumping = controls[1][Actions.UP] || controls[2][Actions.UP]
 
@@ -53,14 +61,19 @@ class Player {
             return
         }
 
-        const floor = stage.getFloor(this.pos.x - this.r, this.pos.x + this.r)
+        const [floor, floor2] = stage.getFloor(this.pos.x - this.r, this.pos.x + this.r)
 
-        if (this.pos.y >= floor - this.r) {
-            this.doubleJump = true
-            this.onGround = true
-            this.pos.y = floor - this.r
-            this.velocity.x = walkSpeed
-            this.velocity.y = 0
+        if (this.pos.y >= floor - this.r && this.prevPos.y <= floor - this.r) {
+            this.standOn(floor)
+        }
+        else if (this.pos.y >= floor2 - this.r && this.prevPos.y <= floor2 - this.r) {
+            this.standOn(floor2)
+        }
+
+        const wall = stage.getWall(this.pos.x + this.r, this.pos.y + this.r)
+
+        if (this.pos.x > wall - this.r) {
+            this.pos.x = wall - this.r
         }
     }
 

@@ -14,6 +14,13 @@ class Player {
         this.r = 0.5 * playerSize;
         this.velocity = new Vec2(0, 0);
     }
+    standOn(floor) {
+        this.doubleJump = true;
+        this.onGround = true;
+        this.pos.y = floor - this.r;
+        this.velocity.x = walkSpeed;
+        this.velocity.y = 0;
+    }
     update(t, stage) {
         const jumping = controls[1][2 /* UP */] || controls[2][2 /* UP */];
         if (jumping) {
@@ -38,13 +45,16 @@ class Player {
             this.velocity = new Vec2(0, 0);
             return;
         }
-        const floor = stage.getFloor(this.pos.x - this.r, this.pos.x + this.r);
-        if (this.pos.y >= floor - this.r) {
-            this.doubleJump = true;
-            this.onGround = true;
-            this.pos.y = floor - this.r;
-            this.velocity.x = walkSpeed;
-            this.velocity.y = 0;
+        const [floor, floor2] = stage.getFloor(this.pos.x - this.r, this.pos.x + this.r);
+        if (this.pos.y >= floor - this.r && this.prevPos.y <= floor - this.r) {
+            this.standOn(floor);
+        }
+        else if (this.pos.y >= floor2 - this.r && this.prevPos.y <= floor2 - this.r) {
+            this.standOn(floor2);
+        }
+        const wall = stage.getWall(this.pos.x + this.r, this.pos.y + this.r);
+        if (this.pos.x > wall - this.r) {
+            this.pos.x = wall - this.r;
         }
     }
     render(c, t) {
