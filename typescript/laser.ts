@@ -64,12 +64,34 @@ class Laser {
         if (this.t < this.activation + laserPrefire) {
             if (this.paletteIndex & 2) return
             c.fillStyle = prefireColor
-            c.fillRect(0, this.y - 1, cwidth, 3)
+            this._paintPrefire(c)
         }
         else {
             const r = lerp(this.rPrev, this.r, t)
             c.fillStyle = laserPalette[this.paletteIndex]
-            c.fillRect(0, this.y - r, cwidth, 2 * r)
+            this._paint(c, r)
         }
+    }
+
+    _paint(c: CanvasRenderingContext2D, r: number) {
+        c.fillRect(0, this.y - r, cwidth, 2 * r)
+    }
+
+    _paintPrefire(c: CanvasRenderingContext2D) {
+        c.fillRect(0, this.y - 1, cwidth, 3)
+    }
+}
+
+class LaserV extends Laser { // where .y is actually .x
+    kills(p: Player): boolean {
+        return this.killing && !p.dead && Math.abs(this.y - p.pos.x) < this.r + p.r
+    }
+
+    _paint(c: CanvasRenderingContext2D, r: number) {
+        c.fillRect(this.y - r, 0, 2 * r, cheight)
+    }
+
+    _paintPrefire(c: CanvasRenderingContext2D) {
+        c.fillRect(this.y - 1, 0, 3, cheight)
     }
 }

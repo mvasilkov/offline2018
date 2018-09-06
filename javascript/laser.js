@@ -43,12 +43,29 @@ class Laser {
             if (this.paletteIndex & 2)
                 return;
             c.fillStyle = prefireColor;
-            c.fillRect(0, this.y - 1, cwidth, 3);
+            this._paintPrefire(c);
         }
         else {
             const r = lerp(this.rPrev, this.r, t);
             c.fillStyle = laserPalette[this.paletteIndex];
-            c.fillRect(0, this.y - r, cwidth, 2 * r);
+            this._paint(c, r);
         }
+    }
+    _paint(c, r) {
+        c.fillRect(0, this.y - r, cwidth, 2 * r);
+    }
+    _paintPrefire(c) {
+        c.fillRect(0, this.y - 1, cwidth, 3);
+    }
+}
+class LaserV extends Laser {
+    kills(p) {
+        return this.killing && !p.dead && Math.abs(this.y - p.pos.x) < this.r + p.r;
+    }
+    _paint(c, r) {
+        c.fillRect(this.y - r, 0, 2 * r, cheight);
+    }
+    _paintPrefire(c) {
+        c.fillRect(this.y - 1, 0, 3, cheight);
     }
 }

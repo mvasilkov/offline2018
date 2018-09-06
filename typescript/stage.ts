@@ -15,8 +15,11 @@ class Stage {
     lasers: Laser[]
 
     constructor() {
-        this.columns = [0, 0, 0, 0, 0, 0, 0, HOLE, HOLE, HOLE, 0, 0, 0, 0, 0, 0, HOLE, 0, 0, 0, 0, 0]
-        this.lasers = [new Laser(0.4, 300)]
+        this.columns = [0, 0, 0, 0, 0, 0, 0, HOLE, HOLE, HOLE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+        this.lasers = [
+            new Laser(0.4, stageFloor - 60),
+            new LaserV(1, stagePadding + 220),
+        ]
     }
 
     getFloor(x: number, x2: number): number[] {
