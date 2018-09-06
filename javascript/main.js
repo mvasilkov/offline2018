@@ -8,11 +8,10 @@ function update(t) {
 }
 function render(t) {
     context.clearRect(0, 0, cwidth, cheight);
-    player.render(context, t);
     stage.render(context, t);
+    player.render(context, t);
     if (stage.kills(player)) {
-        stage.reset();
-        player.restart();
+        player.kill();
     }
 }
 startMainloop(update, render);

@@ -8,6 +8,7 @@ const playerSize = 40
 const playerStart = new Vec2(60, 160)
 
 class Player {
+    dead: boolean
     doubleJump: boolean
     onGround: boolean
     pos: Vec2
@@ -16,6 +17,7 @@ class Player {
     velocity: Vec2
 
     constructor() {
+        this.dead = false
         this.doubleJump = false
         this.onGround = false
         this.pos = playerStart.copy()
@@ -25,11 +27,12 @@ class Player {
     }
 
     restart() {
+        this.dead = false
         this.doubleJump = false
         this.onGround = false
         this.pos = playerStart.copy()
         this.prevPos = playerStart.copy()
-        this.velocity = new Vec2(0, 0)
+        this.velocity.set(0, 0)
     }
 
     standOn(floor: number) {
@@ -40,10 +43,16 @@ class Player {
         this.velocity.y = 0
     }
 
+    kill() {
+        this.dead = true
+        this.velocity.x *= 0.5
+        if (this.velocity.y < 0) this.velocity.y * 0.5
+    }
+
     update(t: number, stage: Stage) {
         const jumping = controls[1][Actions.UP] || controls[2][Actions.UP]
 
-        if (jumping) {
+        if (jumping && !this.dead) {
             if (this.onGround) {
                 this.onGround = false
                 this.velocity.y = t * jumpAccel
@@ -66,13 +75,15 @@ class Player {
             return
         }
 
-        const [floor, floor2] = stage.getFloor(this.pos.x - this.r, this.pos.x + this.r)
+        if (!this.dead) {
+            const [floor, floor2] = stage.getFloor(this.pos.x - this.r, this.pos.x + this.r)
 
-        if (this.pos.y >= floor - this.r && this.prevPos.y <= floor - this.r) {
-            this.standOn(floor)
-        }
-        else if (this.pos.y >= floor2 - this.r && this.prevPos.y <= floor2 - this.r) {
-            this.standOn(floor2)
+            if (this.pos.y >= floor - this.r && this.prevPos.y <= floor - this.r) {
+                this.standOn(floor)
+            }
+            else if (this.pos.y >= floor2 - this.r && this.prevPos.y <= floor2 - this.r) {
+                this.standOn(floor2)
+            }
         }
 
         if (this.pos.y > cheight + this.r) {
@@ -80,6 +91,8 @@ class Player {
             this.restart()
             return
         }
+
+        if (this.dead) return
 
         const wall = stage.getWall(this.pos.x + this.r, this.pos.y + this.r)
 
@@ -92,7 +105,7 @@ class Player {
         const x = lerp(this.prevPos.x, this.pos.x, t)
         const y = lerp(this.prevPos.y, this.pos.y, t)
 
-        c.fillStyle = '#fff'
+        c.fillStyle = this.dead ? '#aaa' : '#fff'
         c.fillRect(x - this.r, y - this.r, playerSize, playerSize)
     }
 }

@@ -11,12 +11,11 @@ function update(t: number) {
 function render(t: number) {
     context.clearRect(0, 0, cwidth, cheight)
 
-    player.render(context, t)
     stage.render(context, t)
+    player.render(context, t)
 
     if (stage.kills(player)) {
-        stage.reset()
-        player.restart()
+        player.kill()
     }
 }
 

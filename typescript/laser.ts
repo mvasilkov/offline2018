@@ -44,7 +44,7 @@ class Laser {
     }
 
     kills(p: Player): boolean {
-        return this.killing && Math.abs(this.y - p.pos.y) < this.r + p.r
+        return this.killing && !p.dead && Math.abs(this.y - p.pos.y) < this.r + p.r
     }
 
     update(t: number) {
