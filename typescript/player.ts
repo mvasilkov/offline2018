@@ -61,6 +61,7 @@ class Player {
         this.pos.add(this.velocity)
 
         if (this.pos.x > stageEnd - this.r) {
+            stage.reset()
             this.restart()
             return
         }
@@ -75,6 +76,7 @@ class Player {
         }
 
         if (this.pos.y > cheight + this.r) {
+            stage.reset()
             this.restart()
             return
         }
@@ -87,8 +89,8 @@ class Player {
     }
 
     render(c: CanvasRenderingContext2D, t: number) {
-        const x = t * this.pos.x + (1 - t) * this.prevPos.x
-        const y = t * this.pos.y + (1 - t) * this.prevPos.y
+        const x = lerp(this.prevPos.x, this.pos.x, t)
+        const y = lerp(this.prevPos.y, this.pos.y, t)
 
         c.fillStyle = '#fff'
         c.fillRect(x - this.r, y - this.r, playerSize, playerSize)

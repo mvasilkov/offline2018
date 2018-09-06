@@ -10,6 +10,7 @@ const HOLE = -255;
 class Stage {
     constructor() {
         this.columns = [0, 0, 0, 0, 0, 0, 0, HOLE, HOLE, HOLE, 0, 0, 0, 0, 0, 0, HOLE, 0, 0, 0, 0, 0];
+        this.lasers = [new Laser(0.4, 300)];
     }
     getFloor(x, x2) {
         const a = stageFloor - this.columns[Math.floor((x - stagePadding) / colSize)];
@@ -23,7 +24,24 @@ class Stage {
         }
         return x;
     }
-    render(c) {
+    reset() {
+        for (let n = 0; n < this.lasers.length; ++n) {
+            this.lasers[n].reset();
+        }
+    }
+    kills(p) {
+        for (let n = 0; n < this.lasers.length; ++n) {
+            if (this.lasers[n].kills(p))
+                return true;
+        }
+        return false;
+    }
+    update(t) {
+        for (let n = 0; n < this.lasers.length; ++n) {
+            this.lasers[n].update(t);
+        }
+    }
+    render(c, t) {
         for (let n = 0; n < colCount; ++n) {
             if (this.columns[n] != HOLE) {
                 const left = stagePadding + n * colSize;
@@ -33,6 +51,9 @@ class Stage {
                 c.fillStyle = '#aaa';
                 c.fillRect(left, top, colSize, this.columns[n]);
             }
+        }
+        for (let n = 0; n < this.lasers.length; ++n) {
+            this.lasers[n].render(c, t);
         }
     }
 }
