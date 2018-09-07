@@ -1,5 +1,5 @@
 "use strict";
-function renderBackground(c, title) {
+function renderBackground(c, title, ez) {
     c.clearRect(0, 0, cwidth, cheight);
     const f = 310;
     const points = [];
@@ -14,7 +14,7 @@ function renderBackground(c, title) {
             });
         }
     }
-    c.fillStyle = c.strokeStyle = '#18ffff'; // '#32fa05'
+    c.fillStyle = c.strokeStyle = ez ? '#32fa05' : '#18ffff';
     function lineToPoint(p) {
         const k = f / (f + p.z);
         const x = p.x * k + 0.5 * cwidth;

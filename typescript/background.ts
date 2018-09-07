@@ -4,7 +4,7 @@ interface Point {
     z: number,
 }
 
-function renderBackground(c: CanvasRenderingContext2D, title: string) {
+function renderBackground(c: CanvasRenderingContext2D, title?: string, ez?: boolean) {
     c.clearRect(0, 0, cwidth, cheight)
 
     const f = 310
@@ -24,7 +24,7 @@ function renderBackground(c: CanvasRenderingContext2D, title: string) {
         }
     }
 
-    c.fillStyle = c.strokeStyle = '#18ffff' // '#32fa05'
+    c.fillStyle = c.strokeStyle = ez ? '#32fa05' : '#18ffff'
 
     function lineToPoint(p: Point) {
         const k = f / (f + p.z)

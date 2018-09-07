@@ -56,3 +56,12 @@ function updateControls(event, keyDown) {
 }
 document.body.addEventListener('keydown', event => updateControls(event, true));
 document.body.addEventListener('keyup', event => updateControls(event, false));
+/* Hack to respond to clicks and touches */
+document.body.addEventListener('mousedown', event => {
+    event.preventDefault();
+    controls[1][2 /* UP */] = true;
+});
+canvas.addEventListener('touchstart', event => {
+    event.preventDefault();
+    controls[2][2 /* UP */] = true;
+});

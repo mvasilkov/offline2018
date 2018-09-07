@@ -7,5 +7,6 @@
 /// <reference path="playersprite.ts" />
 /// <reference path="player.ts" />
 /// <reference path="laser.ts" />
+/// <reference path="levels.ts" />
 /// <reference path="stage.ts" />
 /// <reference path="main.ts" />

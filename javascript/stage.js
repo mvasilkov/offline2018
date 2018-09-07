@@ -6,16 +6,12 @@ const stagePadding = 0.5 * (cwidth - stageSize);
 const stageEnd = stagePadding + stageSize;
 const colSize = 40;
 const colCount = stageSize / colSize;
-const HOLE = -255;
 class Stage {
-    constructor() {
-        this.columns = [0, 0, 0, 0, 0, 40, 80, HOLE, HOLE, HOLE, 0, 0, 0, 0, HOLE, HOLE, HOLE, 0, 0, 0, 0, 0];
-        this.lasers = [
-        // new Laser(0.4, stageFloor - 60),
-        // new LaserV(1, stagePadding + 220),
-        ];
+    constructor(lvl) {
+        this.columns = lvl.cols;
+        this.lasers = lvl.lasers.map(a => new (a.v ? LaserV : Laser)(a.act, a.v ? stagePadding + a.pos : stageFloor - a.pos));
         this.staticImage = makeSprite(cwidth, cheight, this.renderOnce.bind(this));
-        renderBackground(bcontext, 'Double jump');
+        renderBackground(bcontext, lvl.title, lvl.ez);
     }
     getFloor(x, x2) {
         const a = stageFloor - this.columns[Math.floor((x - stagePadding) / colSize)];
