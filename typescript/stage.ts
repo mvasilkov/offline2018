@@ -74,13 +74,13 @@ class Stage {
             if (this.columns[n] == HOLE) {
                 c.fillStyle = '#fff'
 
-                if (this.columns[n - 1] != HOLE) {
+                if (n != 0 && this.columns[n - 1] != HOLE) {
                     // c.fillRect(left - 2, stageFloor + 4, 2, 96)
                     c.fillRect(left - 2, stageFloor + 4, 2, 36)
                     c.fillRect(left - 2, stageFloor + 55, 2, 20)
                     c.fillRect(left - 2, stageFloor + 90, 2, 10)
                 }
-                if (this.columns[n + 1] != HOLE) {
+                if (n != colCount - 1 && this.columns[n + 1] != HOLE) {
                     // c.fillRect(left + colSize, stageFloor + 4, 2, 96)
                     c.fillRect(left + colSize, stageFloor + 4, 2, 36)
                     c.fillRect(left + colSize, stageFloor + 55, 2, 20)

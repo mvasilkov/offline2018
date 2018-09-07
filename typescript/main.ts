@@ -1,7 +1,7 @@
 /// <reference path="you_have_to.d.ts" />
 
 const player = new Player
-const stage = new Stage(LEVELS[3])
+const stage = new Stage(LEVELS[7])
 
 const parallax = 0.09
 const parallay = 0.04
