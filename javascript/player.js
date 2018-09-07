@@ -81,7 +81,7 @@ class Player {
     render(c, t) {
         const x = lerp(this.prevPos.x, this.pos.x, t);
         const y = lerp(this.prevPos.y, this.pos.y, t);
-        c.fillStyle = this.dead ? '#aaa' : '#fff';
+        c.fillStyle = this.dead ? '#90a4ae' : '#fff';
         c.fillRect(x - this.r, y - this.r, playerSize, playerSize);
     }
 }

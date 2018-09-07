@@ -9,11 +9,12 @@ const colCount = stageSize / colSize;
 const HOLE = -255;
 class Stage {
     constructor() {
-        this.columns = [0, 0, 0, 0, 0, 0, 0, HOLE, HOLE, HOLE, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+        this.columns = [0, 0, 0, 0, 0, 0, 0, 100, 200, 300, 0, 0, 0, 0, HOLE, HOLE, HOLE, 0, 0, 0, 0, 0];
         this.lasers = [
-            new Laser(0.4, stageFloor - 60),
-            new LaserV(1, stagePadding + 220),
+        // new Laser(0.4, stageFloor - 60),
+        // new LaserV(1, stagePadding + 220),
         ];
+        this.staticImage = makeSprite(cwidth, cheight, this.renderOnce.bind(this));
     }
     getFloor(x, x2) {
         const a = stageFloor - this.columns[Math.floor((x - stagePadding) / colSize)];
@@ -45,18 +46,36 @@ class Stage {
         }
     }
     render(c, t) {
+        c.drawImage(this.staticImage, 0, 0);
+        for (let n = 0; n < this.lasers.length; ++n) {
+            this.lasers[n].render(c, t);
+        }
+    }
+    renderOnce(c) {
         for (let n = 0; n < colCount; ++n) {
-            if (this.columns[n] != HOLE) {
-                const left = stagePadding + n * colSize;
+            const left = stagePadding + n * colSize;
+            if (this.columns[n] == HOLE) {
+                c.fillStyle = '#fff';
+                if (this.columns[n - 1] != HOLE) {
+                    // c.fillRect(left - 2, stageFloor + 4, 2, 96)
+                    c.fillRect(left - 2, stageFloor + 4, 2, 36);
+                    c.fillRect(left - 2, stageFloor + 55, 2, 20);
+                    c.fillRect(left - 2, stageFloor + 90, 2, 10);
+                }
+                if (this.columns[n + 1] != HOLE) {
+                    // c.fillRect(left + colSize, stageFloor + 4, 2, 96)
+                    c.fillRect(left + colSize, stageFloor + 4, 2, 36);
+                    c.fillRect(left + colSize, stageFloor + 55, 2, 20);
+                    c.fillRect(left + colSize, stageFloor + 90, 2, 10);
+                }
+            }
+            else {
                 const top = stageFloor - this.columns[n];
                 c.fillStyle = '#fff';
                 c.fillRect(left, stageFloor, colSize, 4);
-                c.fillStyle = '#aaa';
+                c.fillStyle = '#f1f1f1';
                 c.fillRect(left, top, colSize, this.columns[n]);
             }
-        }
-        for (let n = 0; n < this.lasers.length; ++n) {
-            this.lasers[n].render(c, t);
         }
     }
 }

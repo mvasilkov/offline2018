@@ -1,9 +1,15 @@
-#bcanvas, #canvas {
+#bcanvas, #canvas, #screen {
     left: 0;
     position: absolute;
     top: 0;
 }
 
 #bcanvas {
-    background: #202020;
+    background: #101010;
+}
+
+#screen {
+    background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAQAAAAziH6sAAAADklEQVR4AWNmMGb+zwAAAusBObK7SDsAAAAASUVORK5CYII=);
+    pointer-events: none;
+    z-index: 10;
 }

@@ -12,3 +12,7 @@ bcanvas.height = canvas.height = cheight
 canvas.addEventListener('contextmenu', event => {
     event.preventDefault()
 })
+
+const scr = document.getElementById('screen')!
+scr.style.width = cwidth + 'px'
+scr.style.height = cheight + 'px'
