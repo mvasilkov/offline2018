@@ -14,4 +14,5 @@ function render(t) {
         player.kill();
     }
 }
+renderBackground(bcontext);
 startMainloop(update, render);

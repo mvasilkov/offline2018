@@ -19,4 +19,5 @@ function render(t: number) {
     }
 }
 
+renderBackground(bcontext)
 startMainloop(update, render)
