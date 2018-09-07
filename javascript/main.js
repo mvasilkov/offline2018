@@ -20,6 +20,9 @@ function render(t) {
     stage.render(context, t);
     player.render(context, t);
     context.restore();
+    if (player.nDeaths) {
+        setFontSize(context, 20);
+        paintTextBlob(context, 'Deaths: ' + player.nDeaths, 500);
+    }
 }
-renderBackground(bcontext);
 startMainloop(update, render);

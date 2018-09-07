@@ -10,6 +10,7 @@ const playerStart = new Vec2(60, 160)
 class Player {
     dead: boolean
     doubleJump: boolean
+    nDeaths: number
     onGround: boolean
     pos: Vec2
     prevPos: Vec2
@@ -19,6 +20,7 @@ class Player {
     constructor() {
         this.dead = false
         this.doubleJump = false
+        this.nDeaths = 0
         this.onGround = false
         this.pos = playerStart.copy()
         this.prevPos = playerStart.copy()
@@ -84,9 +86,13 @@ class Player {
             else if (this.pos.y >= floor2 - this.r && this.prevPos.y <= floor2 - this.r) {
                 this.standOn(floor2)
             }
+            else {
+                this.onGround = false
+            }
         }
 
         if (this.pos.y > cheight + this.r) {
+            ++this.nDeaths
             stage.reset()
             this.restart()
             return
@@ -107,5 +113,9 @@ class Player {
 
         c.fillStyle = this.dead ? '#90a4ae' : '#fff'
         c.fillRect(x - this.r, y - this.r, playerSize, playerSize)
+
+        c.fillStyle = this.dead ? '#607d8b' : '#bdbdbd'
+        c.fillRect(x, y - 10, 4, 10)
+        c.fillRect(x + 10, y - 10, 4, 10)
     }
 }

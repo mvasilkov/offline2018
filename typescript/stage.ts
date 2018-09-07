@@ -17,13 +17,15 @@ class Stage {
     staticImage: HTMLCanvasElement
 
     constructor() {
-        this.columns = [0, 0, 0, 0, 0, 0, 0, 100, 200, 300, 0, 0, 0, 0, HOLE, HOLE, HOLE, 0, 0, 0, 0, 0]
+        this.columns = [0, 0, 0, 0, 0, 40, 80, HOLE, HOLE, HOLE, 0, 0, 0, 0, HOLE, HOLE, HOLE, 0, 0, 0, 0, 0]
         this.lasers = [
             // new Laser(0.4, stageFloor - 60),
             // new LaserV(1, stagePadding + 220),
         ]
 
         this.staticImage = makeSprite(cwidth, cheight, this.renderOnce.bind(this))
+
+        renderBackground(bcontext, 'Double jump')
     }
 
     getFloor(x: number, x2: number): number[] {

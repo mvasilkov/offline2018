@@ -1,5 +1,5 @@
 "use strict";
-function renderBackground(c) {
+function renderBackground(c, title) {
     c.clearRect(0, 0, cwidth, cheight);
     const f = 310;
     const points = [];
@@ -36,5 +36,22 @@ function renderBackground(c) {
             lineToPoint(points[51 * v + u]);
         }
         c.stroke();
+    }
+    /* Stars */
+    for (let n = 0; n < 200; ++n) {
+        const x = Math.random() * cwidth;
+        const y = Math.random() * 80;
+        c.fillStyle = 'rgba(' +
+            Math.round(Math.random() * 100) + 155 + ',' +
+            Math.round(Math.random() * 100) + 155 + ',' +
+            Math.round(Math.random() * 100) + 155 + ',' +
+            Math.random() + ')';
+        c.beginPath();
+        c.arc(x, y, Math.random() + 0.5, 0, Math.PI * 2);
+        c.fill();
+    }
+    if (title) {
+        setFontSize(c, 25);
+        paintTextBlob(c, '"' + title + '"', 48);
     }
 }

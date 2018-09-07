@@ -9,6 +9,7 @@ class Player {
     constructor() {
         this.dead = false;
         this.doubleJump = false;
+        this.nDeaths = 0;
         this.onGround = false;
         this.pos = playerStart.copy();
         this.prevPos = playerStart.copy();
@@ -65,8 +66,12 @@ class Player {
             else if (this.pos.y >= floor2 - this.r && this.prevPos.y <= floor2 - this.r) {
                 this.standOn(floor2);
             }
+            else {
+                this.onGround = false;
+            }
         }
         if (this.pos.y > cheight + this.r) {
+            ++this.nDeaths;
             stage.reset();
             this.restart();
             return;
@@ -83,5 +88,8 @@ class Player {
         const y = lerp(this.prevPos.y, this.pos.y, t);
         c.fillStyle = this.dead ? '#90a4ae' : '#fff';
         c.fillRect(x - this.r, y - this.r, playerSize, playerSize);
+        c.fillStyle = this.dead ? '#607d8b' : '#bdbdbd';
+        c.fillRect(x, y - 10, 4, 10);
+        c.fillRect(x + 10, y - 10, 4, 10);
     }
 }
