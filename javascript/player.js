@@ -54,9 +54,9 @@ class Player {
         this.velocity.y += t * gravity;
         this.pos.add(this.velocity);
         if (this.pos.x > stageEnd - this.r) {
-            stage.reset();
-            this.restart();
-            return;
+            // stage.reset()
+            // this.restart()
+            return true;
         }
         if (!this.dead) {
             const [floor, floor2] = stage.getFloor(this.pos.x - this.r, this.pos.x + this.r);

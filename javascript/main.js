@@ -1,11 +1,19 @@
 "use strict";
 /// <reference path="you_have_to.d.ts" />
 const player = new Player;
-const stage = new Stage(LEVELS[7]);
+let nowPlaying = 0;
+let stage = new Stage(LEVELS[nowPlaying]);
 const parallax = 0.09;
 const parallay = 0.04;
 function update(t) {
-    player.update(t, stage);
+    const nextLevel = player.update(t, stage);
+    if (nextLevel) {
+        if (nowPlaying != LEVELS.length - 1)
+            ++nowPlaying;
+        stage = new Stage(LEVELS[nowPlaying]);
+        player.restart();
+        return;
+    }
     stage.update(t);
     if (stage.kills(player)) {
         player.kill();

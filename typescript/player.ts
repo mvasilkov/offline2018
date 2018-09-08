@@ -51,7 +51,7 @@ class Player {
         if (this.velocity.y < 0) this.velocity.y * 0.5
     }
 
-    update(t: number, stage: Stage) {
+    update(t: number, stage: Stage): boolean | undefined {
         const jumping = controls[1][Actions.UP] || controls[2][Actions.UP]
 
         if (jumping && !this.dead) {
@@ -72,9 +72,9 @@ class Player {
         this.pos.add(this.velocity)
 
         if (this.pos.x > stageEnd - this.r) {
-            stage.reset()
-            this.restart()
-            return
+            // stage.reset()
+            // this.restart()
+            return true
         }
 
         if (!this.dead) {
