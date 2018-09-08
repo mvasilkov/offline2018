@@ -58,6 +58,8 @@ document.body.addEventListener('keydown', event => updateControls(event, true));
 document.body.addEventListener('keyup', event => updateControls(event, false));
 /* Hack to respond to clicks and touches */
 document.body.addEventListener('mousedown', event => {
+    if (event.button)
+        return;
     event.preventDefault();
     controls[1][2 /* UP */] = true;
 });
