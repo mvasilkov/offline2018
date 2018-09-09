@@ -1,5 +1,5 @@
 "use strict";
-const KEYCODES = {
+var KEYCODES = {
     // Arrows (player 2)
     37: {
         player: 2,
@@ -40,7 +40,7 @@ const KEYCODES = {
         action: 2 /* UP */,
     }
 };
-const controls = [
+var controls = [
     [],
     [false, false, false, false],
     [false, false, false, false],
@@ -49,21 +49,21 @@ function updateControls(event, keyDown) {
     if (keyDown && (event.altKey || event.ctrlKey || event.metaKey || event.repeat)) {
         return;
     }
-    let a;
+    var a;
     if (a = KEYCODES[event.keyCode]) {
         controls[a.player][a.action] = keyDown;
     }
 }
-document.body.addEventListener('keydown', event => updateControls(event, true));
-document.body.addEventListener('keyup', event => updateControls(event, false));
+document.body.addEventListener('keydown', function (event) { return updateControls(event, true); });
+document.body.addEventListener('keyup', function (event) { return updateControls(event, false); });
 /* Hack to respond to clicks and touches */
-document.body.addEventListener('mousedown', event => {
+document.body.addEventListener('mousedown', function (event) {
     if (event.button)
         return;
     event.preventDefault();
     controls[1][2 /* UP */] = true;
 });
-canvas.addEventListener('touchstart', event => {
+canvas.addEventListener('touchstart', function (event) {
     event.preventDefault();
     controls[2][2 /* UP */] = true;
 });

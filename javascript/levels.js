@@ -1,5 +1,5 @@
 "use strict";
-const HOLE = -255;
+var HOLE = -255;
 /* Copy paste:
     {
         title: '',
@@ -7,7 +7,7 @@ const HOLE = -255;
         lasers: [],
     },
 */
-const LEVELS = [
+var LEVELS = [
     {
         title: 'You Are Now Entering',
         cols: [60, 60, 60, 60, 60, 60, 60, 60, 60, 40, 40, 20, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0],

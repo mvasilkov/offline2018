@@ -1,12 +1,12 @@
 "use strict";
 /// <reference path="you_have_to.d.ts" />
-const player = new Player;
-let nowPlaying = 17; // Title screen
-let stage = new Stage(LEVELS[nowPlaying]);
-const parallax = 0.09;
-const parallay = 0.04;
+var player = new Player;
+var nowPlaying = 17; // Title screen
+var stage = new Stage(LEVELS[nowPlaying]);
+var parallax = 0.09;
+var parallay = 0.04;
 function update(t) {
-    const nextLevel = player.update(t, stage);
+    var nextLevel = player.update(t, stage);
     if (nextLevel) {
         if (nowPlaying != LEVELS.length - 1)
             ++nowPlaying;
@@ -22,8 +22,8 @@ function update(t) {
 function render(t) {
     context.clearRect(0, 0, cwidth, cheight);
     context.save();
-    const x = lerp(player.prevPos.x, player.pos.x, t);
-    const y = lerp(player.prevPos.y, player.pos.y, t);
+    var x = lerp(player.prevPos.x, player.pos.x, t);
+    var y = lerp(player.prevPos.y, player.pos.y, t);
     context.translate((0.5 * cwidth - x) * parallax, (0.5 * cheight - y) * parallay);
     stage.render(context, t);
     player.render(context, t);
@@ -34,10 +34,10 @@ function render(t) {
     }
 }
 // Music
-let music = null;
+var music = null;
 function initMusic() {
-    const synth = new sonant;
-    for (let i = 0; i < 8; ++i) {
+    var synth = new sonant;
+    for (var i = 0; i < 8; ++i) {
         synth.generate(i);
     }
     music = synth.createAudio();
@@ -52,16 +52,16 @@ if (!isMobile) {
     }
 }
 // Title screen
-const loadingScreen = document.getElementById('load');
-const startScreen = document.getElementById('home');
-const startButton = document.getElementById('start');
+var loadingScreen = document.getElementById('load');
+var startScreen = document.getElementById('home');
+var startButton = document.getElementById('start');
 function initMenu() {
     if (isMobile)
         document.body.className = 'mobile';
-    const musicToggle = document.getElementById('m');
-    const soundToggle = document.getElementById('s');
+    var musicToggle = document.getElementById('m');
+    var soundToggle = document.getElementById('s');
     musicToggle.checked = soundToggle.checked = true;
-    musicToggle.addEventListener('change', event => {
+    musicToggle.addEventListener('change', function (event) {
         if (!music)
             return;
         if (musicToggle.checked) {
@@ -71,7 +71,7 @@ function initMenu() {
         else
             music.pause();
     });
-    soundToggle.addEventListener('change', event => {
+    soundToggle.addEventListener('change', function (event) {
         if (aa.on = soundToggle.checked) {
             aa.play('bip');
         }

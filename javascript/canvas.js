@@ -1,25 +1,25 @@
 "use strict";
-const cwidth = 960;
-const cheight = 540;
-const aspect = 16 / 9;
-let cscale = 1;
-const container = document.getElementById('container');
-const bcanvas = document.getElementById('bcanvas');
-const canvas = document.getElementById('canvas');
-const bcontext = bcanvas.getContext('2d');
-const context = canvas.getContext('2d');
-let transformProperty = 'transform';
+var cwidth = 960;
+var cheight = 540;
+var aspect = 16 / 9;
+var cscale = 1;
+var container = document.getElementById('container');
+var bcanvas = document.getElementById('bcanvas');
+var canvas = document.getElementById('canvas');
+var bcontext = bcanvas.getContext('2d');
+var context = canvas.getContext('2d');
+var transformProperty = 'transform';
 if (!(transformProperty in container.style)) {
     transformProperty = 'webkitTransform';
 }
 bcanvas.width = canvas.width = cwidth;
 bcanvas.height = canvas.height = cheight;
 function setSize(x, prop, value) {
-    x.style[prop] = `${value}px`;
+    x.style[prop] = value + "px";
 }
 function handleResize() {
-    let w = innerWidth;
-    let h = innerHeight;
+    var w = innerWidth;
+    var h = innerHeight;
     if (w / h > aspect)
         w = h * aspect;
     else
@@ -29,13 +29,13 @@ function handleResize() {
     setSize(container, 'height', h);
     setSize(container, 'left', 0.5 * (innerWidth - w));
     setSize(container, 'top', 0.5 * (innerHeight - h));
-    const scale = 0.5 * w / cwidth;
-    const scale3d = `scale3d(${scale},${scale},1)`;
+    var scale = 0.5 * w / cwidth;
+    var scale3d = "scale3d(" + scale + "," + scale + ",1)";
     startScreen.style[transformProperty] = scale3d;
 }
 addEventListener('resize', handleResize);
 addEventListener('orientationchange', handleResize);
-canvas.addEventListener('contextmenu', event => {
+canvas.addEventListener('contextmenu', function (event) {
     event.preventDefault();
 });
 /* Text helpers */

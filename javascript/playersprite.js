@@ -1,9 +1,9 @@
 "use strict";
 function makeSprite(width, height, callback) {
-    const hcanvas = document.createElement('canvas');
+    var hcanvas = document.createElement('canvas');
     hcanvas.width = width;
     hcanvas.height = height;
-    const canvas = hcanvas.getContext('2d');
+    var canvas = hcanvas.getContext('2d');
     callback(canvas);
     /* Used for debugging * /
     hcanvas.style.width = width + 'px'

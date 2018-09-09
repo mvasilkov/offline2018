@@ -1,10 +1,10 @@
 "use strict";
-const startMainloop = (function () {
-    let update = t => undefined;
-    let render = t => undefined;
-    const T = 0.02;
-    let then = -1;
-    let t = 0;
+var startMainloop = (function () {
+    var update = function (t) { return undefined; };
+    var render = function (t) { return undefined; };
+    var T = 0.02;
+    var then = -1;
+    var t = 0;
     function mainloop(now) {
         requestAnimationFrame(mainloop);
         if (then == -1) {

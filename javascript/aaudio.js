@@ -1,34 +1,35 @@
 "use strict";
 /// <reference path="you_have_to.d.ts" />
-class AAudio {
-    constructor() {
+var AAudio = /** @class */ (function () {
+    function AAudio() {
         this.on = true;
         this.sounds = {};
     }
-    add(name, count, settings) {
+    AAudio.prototype.add = function (name, count, settings) {
         this.sounds[name] = {
             tick: 0,
             count: count,
             pool: [],
         };
-        for (let i = 0; i < count; ++i) {
-            const audio = new Audio;
+        for (var i = 0; i < count; ++i) {
+            var audio = new Audio;
             audio.src = window.SOUND(settings);
             this.sounds[name].pool.push(audio);
         }
-    }
-    play(name) {
+    };
+    AAudio.prototype.play = function (name) {
         if (!this.on)
             return;
-        const sound = this.sounds[name];
+        var sound = this.sounds[name];
         sound.pool[sound.tick].play();
         if (++sound.tick >= sound.count) {
             sound.tick = 0;
         }
-    }
-}
-const aa = new AAudio;
-const isMobile = navigator.userAgent.match(/Android|iPhone|iPad/i) != null;
+    };
+    return AAudio;
+}());
+var aa = new AAudio;
+var isMobile = navigator.userAgent.match(/Android|iPhone|iPad/i) != null;
 if (isMobile) {
     aa.on = false;
 }
