@@ -11,7 +11,11 @@ class Stage {
         this.columns = lvl.cols;
         this.lasers = lvl.lasers.map(a => new (a.v ? LaserV : Laser)(a.act, a.v ? stagePadding + a.pos : stageFloor - a.pos));
         this.staticImage = makeSprite(cwidth, cheight, this.renderOnce.bind(this));
+        if (lvl.render)
+            lvl.render(this.staticImage.getContext('2d'));
         renderBackground(bcontext, lvl.title, lvl.ez);
+        if (lvl.renderBackground)
+            lvl.renderBackground(bcontext);
     }
     getFloor(x, x2) {
         const a = stageFloor - this.columns[Math.floor((x - stagePadding) / colSize)];

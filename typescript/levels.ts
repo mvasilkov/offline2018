@@ -9,6 +9,8 @@ interface ILevel {
     cols: number[],
     lasers: ILaser[],
     ez?: boolean,
+    render?: (c: CanvasRenderingContext2D) => void,
+    renderBackground?: (c: CanvasRenderingContext2D) => void,
 }
 
 const HOLE = -255
@@ -217,5 +219,24 @@ const LEVELS: ILevel[] = [
             },
         ],
         ez: true,
+    },
+    {
+        title: 'EOL (End of Line)',
+        cols: [0, 0, 0, 0, 0, 0, 0, 0, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500, 500],
+        lasers: [],
+        ez: true,
+        render: function (c: CanvasRenderingContext2D) {
+            c.clearRect(stagePadding + 80, 0, cwidth, cheight)
+            c.fillStyle = '#fff'
+            c.beginPath()
+            c.arc(stagePadding + 80, stageFloor + 2, 5, 0, Math.PI * 2)
+            c.fill()
+        },
+        renderBackground: function (c: CanvasRenderingContext2D) {
+            setFontSize(c, 25)
+            paintTextBlob(c, 'Congratulations!', stageFloor - 15)
+            setFontSize(c, 18)
+            paintTextBlob(c, '(Reload the page to start a new game)', stageFloor + 22)
+        },
     },
 ]
