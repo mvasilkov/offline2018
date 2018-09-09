@@ -21,6 +21,8 @@ class Laser {
     a: number
     b: number
 
+    sound: boolean
+
     constructor(activation: number, y: number) {
         this.activation = activation
         this.end = activation + laserPrefire + laserActive
@@ -33,6 +35,8 @@ class Laser {
 
         this.a = 1 / laserFadeOut
         this.b = this.end / laserFadeOut
+
+        this.sound = true
     }
 
     reset() {
@@ -41,6 +45,8 @@ class Laser {
         this.r = 0.5 * laserSize
         this.rPrev = this.r
         this.t = 0
+
+        this.sound = true
     }
 
     kills(p: Player): boolean {
@@ -70,6 +76,11 @@ class Laser {
             const r = lerp(this.rPrev, this.r, t)
             c.fillStyle = laserPalette[this.paletteIndex]
             this._paint(c, r)
+
+            if (this.sound) {
+                this.sound = false
+                aa.play('las')
+            }
         }
     }
 

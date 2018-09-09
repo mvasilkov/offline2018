@@ -31,6 +31,7 @@ var Laser = /** @class */ (function () {
         this.y = y;
         this.a = 1 / laserFadeOut;
         this.b = this.end / laserFadeOut;
+        this.sound = true;
     }
     Laser.prototype.reset = function () {
         this.killing = false;
@@ -38,6 +39,7 @@ var Laser = /** @class */ (function () {
         this.r = 0.5 * laserSize;
         this.rPrev = this.r;
         this.t = 0;
+        this.sound = true;
     };
     Laser.prototype.kills = function (p) {
         return this.killing && !p.dead && Math.abs(this.y - p.pos.y) < this.r + p.r;
@@ -62,6 +64,10 @@ var Laser = /** @class */ (function () {
             var r = lerp(this.rPrev, this.r, t);
             c.fillStyle = laserPalette[this.paletteIndex];
             this._paint(c, r);
+            if (this.sound) {
+                this.sound = false;
+                aa.play('las');
+            }
         }
     };
     Laser.prototype._paint = function (c, r) {

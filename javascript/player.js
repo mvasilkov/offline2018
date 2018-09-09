@@ -43,10 +43,12 @@ var Player = /** @class */ (function () {
             if (this.onGround) {
                 this.onGround = false;
                 this.velocity.y = t * jumpAccel;
+                aa.play('jmp');
             }
             else if (this.doubleJump) {
                 this.doubleJump = false;
                 this.velocity.y = t * jumpAccel;
+                aa.play('jmp');
             }
             controls[1][2 /* UP */] = controls[2][2 /* UP */] = false;
         }
@@ -74,6 +76,7 @@ var Player = /** @class */ (function () {
             ++this.nDeaths;
             stage.reset();
             this.restart();
+            aa.play('bip');
             return;
         }
         if (this.dead)

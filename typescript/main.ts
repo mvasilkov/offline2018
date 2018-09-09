@@ -17,6 +17,8 @@ function update(t: number) {
         stage = new Stage(LEVELS[nowPlaying])
         player.restart()
 
+        aa.play('end')
+
         return
     }
 
@@ -24,6 +26,8 @@ function update(t: number) {
 
     if (stage.kills(player)) {
         player.kill()
+
+        aa.play('hit')
     }
 }
 
@@ -58,7 +62,7 @@ function initMusic() {
     }
     music = synth.createAudio()
     music.loop = true
-    music.volume = 0.9
+    music.volume = 0.7
 }
 
 if (!isMobile) {
@@ -81,7 +85,7 @@ function initMenu() {
     const musicToggle = document.getElementById('m') as HTMLInputElement
     const soundToggle = document.getElementById('s') as HTMLInputElement
 
-    musicToggle.checked = soundToggle.checked = true
+    musicToggle.checked = !(soundToggle.checked = true)
 
     musicToggle.addEventListener('change', event => {
         if (!music) return
@@ -114,6 +118,8 @@ function start() {
     }
 
     startMainloop(update, render)
+
+    aa.play('bip')
 }
 
 startButton.addEventListener('mousedown', start)

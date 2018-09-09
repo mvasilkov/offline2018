@@ -58,10 +58,14 @@ class Player {
             if (this.onGround) {
                 this.onGround = false
                 this.velocity.y = t * jumpAccel
+
+                aa.play('jmp')
             }
             else if (this.doubleJump) {
                 this.doubleJump = false
                 this.velocity.y = t * jumpAccel
+
+                aa.play('jmp')
             }
 
             controls[1][Actions.UP] = controls[2][Actions.UP] = false
@@ -95,6 +99,9 @@ class Player {
             ++this.nDeaths
             stage.reset()
             this.restart()
+
+            aa.play('bip')
+
             return
         }
 

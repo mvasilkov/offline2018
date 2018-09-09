@@ -12,11 +12,13 @@ function update(t) {
             ++nowPlaying;
         stage = new Stage(LEVELS[nowPlaying]);
         player.restart();
+        aa.play('end');
         return;
     }
     stage.update(t);
     if (stage.kills(player)) {
         player.kill();
+        aa.play('hit');
     }
 }
 function render(t) {
@@ -42,7 +44,7 @@ function initMusic() {
     }
     music = synth.createAudio();
     music.loop = true;
-    music.volume = 0.9;
+    music.volume = 0.7;
 }
 if (!isMobile) {
     try {
@@ -60,7 +62,7 @@ function initMenu() {
         document.body.className = 'mobile';
     var musicToggle = document.getElementById('m');
     var soundToggle = document.getElementById('s');
-    musicToggle.checked = soundToggle.checked = true;
+    musicToggle.checked = !(soundToggle.checked = true);
     musicToggle.addEventListener('change', function (event) {
         if (!music)
             return;
@@ -88,6 +90,7 @@ function start() {
         document.body.requestFullscreen();
     }
     startMainloop(update, render);
+    aa.play('bip');
 }
 startButton.addEventListener('mousedown', start);
 startButton.addEventListener('touchstart', start);
