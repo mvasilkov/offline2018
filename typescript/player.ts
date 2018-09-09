@@ -75,7 +75,7 @@ class Player {
         this.velocity.y += t * gravity
         this.pos.add(this.velocity)
 
-        if (this.pos.x > stageEnd - this.r) {
+        if (this.pos.x > stageEnd - this.r && !this.dead) {
             // stage.reset()
             // this.restart()
             return true
