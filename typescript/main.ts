@@ -47,15 +47,71 @@ function render(t: number) {
     }
 }
 
+// Music
+
+let music: HTMLAudioElement | null = null
+
+function initMusic() {
+    const synth = new sonant
+    for (let i = 0; i < 8; ++i) {
+        synth.generate(i)
+    }
+    music = synth.createAudio()
+    music.loop = true
+    music.volume = 0.9
+}
+
+if (!isMobile) {
+    try {
+        initMusic()
+    }
+    catch (err) {
+    }
+}
+
+// Title screen
+
 const loadingScreen = document.getElementById('load')!
 const startScreen = document.getElementById('home')!
 const startButton = document.getElementById('start')!
+
+function initMenu() {
+    if (isMobile) document.body.className = 'mobile'
+
+    const musicToggle = document.getElementById('m') as HTMLInputElement
+    const soundToggle = document.getElementById('s') as HTMLInputElement
+
+    musicToggle.checked = soundToggle.checked = true
+
+    musicToggle.addEventListener('change', event => {
+        if (!music) return
+
+        if (musicToggle.checked) {
+            music.currentTime = 0
+            music.play()
+        }
+        else music.pause()
+    })
+
+    soundToggle.addEventListener('change', event => {
+        if (aa.on = soundToggle.checked) {
+            aa.play('bip')
+        }
+    })
+
+    container.removeChild(loadingScreen)
+    if (music) music.play()
+}
 
 function start() {
     container.removeChild(startScreen)
 
     nowPlaying = 0
     stage = new Stage(LEVELS[nowPlaying])
+
+    if ((isMobile || cscale > 1) && document.body.requestFullscreen) {
+        document.body.requestFullscreen()
+    }
 
     startMainloop(update, render)
 }
@@ -65,4 +121,4 @@ startButton.addEventListener('touchstart', start)
 
 handleResize()
 
-container.removeChild(loadingScreen)
+initMenu()

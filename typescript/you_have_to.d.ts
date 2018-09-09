@@ -1,3 +1,4 @@
+/// <reference path="aaudio.ts" />
 /// <reference path="initialize.ts" />
 /// <reference path="keyboard.ts" />
 /// <reference path="mainloop.ts" />
