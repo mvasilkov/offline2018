@@ -104,7 +104,7 @@ function initMenu() {
     })
 
     container.removeChild(loadingScreen)
-    if (music) music.play()
+    // if (music) music.play()
 }
 
 function start() {

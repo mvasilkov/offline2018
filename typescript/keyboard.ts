@@ -77,7 +77,3 @@ document.body.addEventListener('mousedown', event => {
     event.preventDefault()
     controls[1][Actions.UP] = true
 })
-canvas.addEventListener('touchstart', event => {
-    event.preventDefault()
-    controls[2][Actions.UP] = true
-})

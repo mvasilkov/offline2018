@@ -52,6 +52,11 @@ canvas.addEventListener('contextmenu', event => {
     event.preventDefault()
 })
 
+canvas.addEventListener('touchstart', event => {
+    event.preventDefault()
+    controls[2][Actions.UP] = true
+})
+
 /* Text helpers */
 
 bcontext.textAlign = context.textAlign = 'center'

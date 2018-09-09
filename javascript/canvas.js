@@ -38,6 +38,10 @@ addEventListener('orientationchange', handleResize);
 canvas.addEventListener('contextmenu', function (event) {
     event.preventDefault();
 });
+canvas.addEventListener('touchstart', function (event) {
+    event.preventDefault();
+    controls[2][2 /* UP */] = true;
+});
 /* Text helpers */
 bcontext.textAlign = context.textAlign = 'center';
 function setFontSize(c, n) {

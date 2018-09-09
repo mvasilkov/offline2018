@@ -63,7 +63,3 @@ document.body.addEventListener('mousedown', function (event) {
     event.preventDefault();
     controls[1][2 /* UP */] = true;
 });
-canvas.addEventListener('touchstart', function (event) {
-    event.preventDefault();
-    controls[2][2 /* UP */] = true;
-});
