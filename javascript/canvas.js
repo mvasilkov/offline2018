@@ -1,19 +1,43 @@
 "use strict";
 const cwidth = 960;
 const cheight = 540;
+const aspect = 16 / 9;
+let cscale = 1;
+const container = document.getElementById('container');
 const bcanvas = document.getElementById('bcanvas');
 const canvas = document.getElementById('canvas');
 const bcontext = bcanvas.getContext('2d');
 const context = canvas.getContext('2d');
+let transformProperty = 'transform';
+if (!(transformProperty in container.style)) {
+    transformProperty = 'webkitTransform';
+}
 bcanvas.width = canvas.width = cwidth;
 bcanvas.height = canvas.height = cheight;
+function setSize(x, prop, value) {
+    x.style[prop] = `${value}px`;
+}
+function handleResize() {
+    let w = innerWidth;
+    let h = innerHeight;
+    if (w / h > aspect)
+        w = h * aspect;
+    else
+        h = w / aspect;
+    cscale = cwidth / w;
+    setSize(container, 'width', w);
+    setSize(container, 'height', h);
+    setSize(container, 'left', 0.5 * (innerWidth - w));
+    setSize(container, 'top', 0.5 * (innerHeight - h));
+    const scale = 0.5 * w / cwidth;
+    const scale3d = `scale3d(${scale},${scale},1)`;
+    startScreen.style[transformProperty] = scale3d;
+}
+addEventListener('resize', handleResize);
+addEventListener('orientationchange', handleResize);
 canvas.addEventListener('contextmenu', event => {
     event.preventDefault();
 });
-/* Scan lines */
-const scr = document.getElementById('screen');
-scr.style.width = cwidth + 'px';
-scr.style.height = cheight + 'px';
 /* Text helpers */
 bcontext.textAlign = context.textAlign = 'center';
 function setFontSize(c, n) {

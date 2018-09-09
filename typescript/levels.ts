@@ -239,4 +239,11 @@ const LEVELS: ILevel[] = [
             paintTextBlob(c, '(Reload the page to start a new game)', stageFloor + 22)
         },
     },
+    // Title screen
+    {
+        title: '',
+        cols: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+        lasers: [],
+        ez: true,
+    },
 ]

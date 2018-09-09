@@ -1,15 +1,97 @@
-#bcanvas, #canvas, #screen {
+html, body {
+    background: #161616;
+    height: 100%;
+    margin: 0;
+    overflow: hidden;
+    -webkit-text-size-adjust: 100%;
+}
+
+#container {
+    position: absolute;
+}
+
+#container > *, label {
+    -moz-user-select: none;
+    -moz-user-select: -moz-none;
+    -ms-user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+#bcanvas, #canvas, #load, #home, #screen {
+    display: block;
+    height: 100%;
     left: 0;
     position: absolute;
     top: 0;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+    width: 100%;
 }
 
 #bcanvas {
     background: #101010;
 }
 
+#load, #home {
+    background: rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+    color: #fff;
+    cursor: default;
+    font: 300 64px/96px 'Segoe UI', 'Helvetica Neue', sans-serif;
+    height: 1080px;
+    padding: 0 100px;
+    transform-origin: 0 0;
+    width: 1920px;
+}
+
+#load + #home {
+    display: none;
+}
+
+#load > *, #home > * {
+    margin: 40px 0;
+}
+
+h1 {
+    font: 300 96px/1 'Segoe UI', 'Helvetica Neue', sans-serif;
+    margin-top: 80px;
+}
+
 #screen {
     background: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAACCAQAAAAziH6sAAAADklEQVR4AWNmMGb+zwAAAusBObK7SDsAAAAASUVORK5CYII=);
     pointer-events: none;
     z-index: 10;
+}
+
+#start {
+    -webkit-animation: blink 0.7s steps(2, start) infinite;
+    animation: blink 0.7s steps(2, start) infinite;
+    background: #E1FF5F;
+    border-radius: 2px;
+    color: #202020;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 48px;
+    font-weight: bold;
+    outline: 4px none;
+    outline-offset: 4px;
+    padding: 40px 120px;
+}
+
+#start:hover {
+    background: #fff;
+}
+
+@-webkit-keyframes blink {
+    to {
+        outline: 4px solid #E1FF5F;
+    }
+}
+
+@keyframes blink {
+    to {
+        outline: 4px solid #E1FF5F;
+    }
 }

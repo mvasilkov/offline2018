@@ -1,7 +1,7 @@
 "use strict";
 /// <reference path="you_have_to.d.ts" />
 const player = new Player;
-let nowPlaying = 0;
+let nowPlaying = 17; // Title screen
 let stage = new Stage(LEVELS[nowPlaying]);
 const parallax = 0.09;
 const parallay = 0.04;
@@ -33,4 +33,16 @@ function render(t) {
         paintTextBlob(context, 'Deaths: ' + player.nDeaths, 500);
     }
 }
-startMainloop(update, render);
+const loadingScreen = document.getElementById('load');
+const startScreen = document.getElementById('home');
+const startButton = document.getElementById('start');
+function start() {
+    container.removeChild(startScreen);
+    nowPlaying = 0;
+    stage = new Stage(LEVELS[nowPlaying]);
+    startMainloop(update, render);
+}
+startButton.addEventListener('mousedown', start);
+startButton.addEventListener('touchstart', start);
+handleResize();
+container.removeChild(loadingScreen);
